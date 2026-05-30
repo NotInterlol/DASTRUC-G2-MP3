@@ -54,6 +54,7 @@ while True:
                       f"Owner Name: {pets.owner_name} | "
                       f"Severity Level: {pets.severity} | ")
                 print(f"\n{'=' * 100}")
+                break
 
             else:
                 print("Pet not found.")
@@ -70,6 +71,7 @@ while True:
                 print(f"\n{'=' * 30}")
                 print("\nSuccessfully deleted pet")
                 print(f"\n{'=' * 30}")
+                break
 
             else:
                 print(f"\n{'=' * 30}")
