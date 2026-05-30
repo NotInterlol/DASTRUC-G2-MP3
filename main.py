@@ -89,5 +89,7 @@ while True:
     # Error handler for invalid choices
     else:
         print("\nInvalid choice, please try again.")
+
+    # Avoids Flooding in the CLI
     print(f"\n{'=' * 36}")
     input(f"\nPress Enter to Continue...")
