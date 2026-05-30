@@ -20,9 +20,8 @@ while True:
 
     if choice == 1:
         clinic.pet_registry()
-
     elif choice == 2:
-        clinic.next_pet()
+        clinic.serve_pet()
 
     elif choice == 3:
         clinic.update_pet()
@@ -90,3 +89,5 @@ while True:
     # Error handler for invalid choices
     else:
         print("\nInvalid choice, please try again.")
+    print(f"\n{'=' * 36}")
+    input(f"\nPress Enter to Continue...")
