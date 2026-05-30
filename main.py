@@ -7,7 +7,7 @@ while True:
     print("\n1. Register Pet")
     print("2. Serve Pet")
     print("3. Update Pet")
-    print("4. Undo Most Recent Registration")
+    print("4. Undo Recently Registered Pet")
     print("5. Display Pet Records")
     print("6. Display Queue")
     print("7. Search Pet")
