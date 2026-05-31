@@ -1,12 +1,17 @@
-""" Used as a storage to register and undo registration"""
-class Stack:
-    def __init__(self):
-        self.items = []
+""" Class to make objects and constructors"""
+from datetime import datetime
 
-    def push(self, pets):
-        self.items.append(pets)
+class Pets:
+    def __init__(self, pet_id, pet_name, breed, owner_name, severity):
+        self.pet_id = pet_id
+        self.pet_name = pet_name
+        self.breed = breed
+        self.owner_name = owner_name
+        self.severity = severity
+        self.registered_time = datetime.now()
 
-    def pop(self):
-        if self.items:
-            return self.items.pop()
-        return None
+""" Node for Linked List """
+class Node:
+    def __init__(self, pets):
+        self.pets = pets
+        self.next = None
