@@ -45,7 +45,7 @@ while True:
     elif choice == 9:
         print("Total waiting pets:", clinic.queue.size())
 
-    elif choice == 10:
+    elif choice == 0:
         print(f"\n{'=' * 30}")
         print("\nExiting Program")
         print(f"\n{'=' * 30}")
