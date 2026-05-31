@@ -160,9 +160,7 @@ class VetClinic:
                 break
 
             else:
-                print(f"\n{'=' * 30}")
-                print("\nPet not found.")
-                print(f"\n{'=' * 30}")
+                print("Pet not found.")
         
     # Delete pet record from registry and queue
     def delete_pet(self):
@@ -176,9 +174,7 @@ class VetClinic:
             pets = self.records.search(pet_id)
 
             if pets is None: # Error handler for crashing
-                print(f"\n{'=' * 30}")
-                print("\nPet not found.")
-                print(f"\n{'=' * 30}")
+                print("Pet not found.")
                 continue
 
             if self.records.delete(pet_id):
