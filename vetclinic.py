@@ -179,6 +179,8 @@ class VetClinic:
 
             if self.records.delete(pet_id):
                 self.queue.remove(pet_id)
+                print(f"\n{'=' * 30}")
                 print(f"\nSuccessfully deleted {pets.pet_name} from pet records")
                 print(f"Pet record deleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                print(f"\n{'=' * 30}")
                 break
