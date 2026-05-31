@@ -1,3 +1,5 @@
+"""Main logic of the entire system to provide intended outputs"""
+from datetime import datetime
 from pets import Pets
 from linked_list import LinkedList
 from queuing import Queue
@@ -8,13 +10,15 @@ class VetClinic:
         self.records = LinkedList()
         self.queue = Queue()
         self.undo = Stack()
-        self.next_id = 1
+        self.next_id = 1 # Automatic ID generation
 
+    # Creates unique ID for every pet registered
     def generate_pet_id(self):
         pet_id = f"{self.next_id:03}"
         self.next_id += 1
         return pet_id
 
+    # Error handler if blank inputs
     @staticmethod # static method to remove self parameter
     def string_input(text):
         while True:
@@ -23,6 +27,7 @@ class VetClinic:
                 return text_input
             print("Please input text, try again.")
 
+    # Error handler for invalid values such as string
     @staticmethod
     def int_input(number):
         while True:
@@ -31,6 +36,7 @@ class VetClinic:
             except ValueError:
                 print("Please enter a number. Try again.")
 
+    # Obtains pet information and severity level and registers pet into records
     def pet_registry(self):
         pet_id = self.generate_pet_id()
         print(f"\nGenerated Pet ID: {pet_id}")
@@ -49,23 +55,24 @@ class VetClinic:
 
         if severity == 1:
             print(f"\n{'=' * 30}")
-            print("\nHigh Severity level detected, pet has been moved to front of queue!")
-            print(f"\n{'=' * 30}")
+            print("\nHigh Severity level detected, pet has been prioritized in the queue!")
 
         pets = Pets(pet_id, pet_name, breed, owner_name, severity)
 
-        self.records.add_node(pets)
-        self.queue.enqueue(pets)
-        self.undo.push(pets)
+        self.records.add_node(pets) # Add record to Linked List
+        self.queue.enqueue(pets) # Add to Queue
+        self.undo.push(pets) # Push to stack for undo
 
         print(f"\n{'=' * 30}")
         print("\nPet Registry Successful.")
+        print(f"Registered at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"\n{'=' * 30}")
 
-    def next_pet(self):
+    # Serves pet and remove from queue
+    def serve_pet(self):
         pets = self.queue.dequeue()
 
-        if pets is None:
+        if pets is None: # Error handler for crashing
             print(f"\n {'=' * 30}")
             print("\nNo available pets.")
             print(f"\n {'=' * 30}")
@@ -73,8 +80,10 @@ class VetClinic:
 
         print(f"\n{'=' * 30}")
         print(f"\nTreating current pet: {pets.pet_name}")
+        print(f"Treated at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"\n{'=' * 30}")
 
+    # Update pet information through ID
     def update_pet(self):
         print("Input X to return to menu")
         while True:
@@ -82,7 +91,7 @@ class VetClinic:
             if pet_id.lower() == "x":
                 return
 
-            pets = self.records.search(pet_id)
+            pets = self.records.search(pet_id) # Searches the pet ID
 
             if pets:
                 break
@@ -101,15 +110,17 @@ class VetClinic:
 
             print("Invalid Severity Level")
 
-        self.queue.remove(pet_id)
-        self.queue.enqueue(pets)
+        self.queue.remove(pet_id) # Removes old information
+        self.queue.enqueue(pets) # Reinsert new entry
 
         print(f"\n{'=' * 30}")
         print("\nPet updated successfully.")
+        print(f"Updated Pet Record at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"\n{'=' * 30}")
 
+    # Undo recently registered pet from pet records and from queue
     def undo_registry(self):
-        pets = self.undo.pop()
+        pets = self.undo.pop() # Remove from stack
 
         if pets is None:
             print(f"\n{'=' * 30}")
@@ -117,8 +128,11 @@ class VetClinic:
             print(f"\n{'=' * 30}")
             return
 
-        self.records.delete(pets.pet_id)
-        self.queue.remove(pets.pet_id)
-        print(f"\n{'=' * 30}")
-        print("\nSuccessfully removed pet registration.")
-        print(f"\n{'=' * 30}")
+        if self.records.delete(pets.pet_id): # Remove from Linked List
+            self.queue.remove(pets.pet_id) # Remove from Queue
+            print(f"\n{'=' * 30}")
+            print(f"\nSuccessfully removed {pets.pet_name} from pet registration.")
+            print(f"Pet record deleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\n{'=' * 30}")
+        else:
+            print(f"Pet was already deleted")
