@@ -1,5 +1,4 @@
 """ Main Console for choosing specific options """
-from datetime import datetime
 from vetclinic import VetClinic
 
 clinic = VetClinic()
@@ -32,56 +31,16 @@ while True:
         clinic.undo_registry()
 
     elif choice == 5:
-        clinic.records.display()
+        clinic.records.display_record()
 
     elif choice == 6:
-        clinic.queue.peek()
+        clinic.queue.display_queue()
 
     elif choice == 7:
-        print("Input X to return to menu")
-        while True:
-            pet_id = clinic.string_input("Enter Pet ID: ")
-            if pet_id.lower() == "x":
-                break
-
-            # Searches similar Pet ID
-            pets = clinic.records.search(pet_id)
-
-            if pets:
-                print(f"\n{'=' * 100}")
-                print(f"\nPet ID: {pets.pet_id} | "
-                      f"Pet Name: {pets.pet_name} | "
-                      f"Breed: {pets.breed} | "
-                      f"Owner Name: {pets.owner_name} | "
-                      f"Severity Level: {pets.severity} | "
-                      f"Registered Time: {pets.registered_time.strftime('%Y-%m-%d %H:%M:%S')} | ")
-                print(f"\n{'=' * 100}")
-                break
-
-            else:
-                print("Pet not found.")
+        clinic.pet_search()
 
     elif choice == 8:
-        print("Input X to return to menu")
-        while True:
-            pet_id = clinic.string_input("Enter Pet ID: ")
-            if pet_id.lower() == "x":
-                break
-
-            pets = clinic.records.search(pet_id)
-
-            if clinic.records.delete(pet_id):
-                clinic.queue.remove(pet_id)
-                print(f"\n{'=' * 30}")
-                print(f"\nSuccessfully deleted {pets.pet_name} from pet records")
-                print(f"Pet record deleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-                print(f"\n{'=' * 30}")
-                break
-
-            else:
-                print(f"\n{'=' * 30}")
-                print("\nPet not found.")
-                print(f"\n{'=' * 30}")
+        clinic.delete_pet()
 
     elif choice == 9:
         print("Total waiting pets:", clinic.queue.size())
