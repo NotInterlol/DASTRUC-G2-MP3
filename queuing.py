@@ -34,7 +34,8 @@ class Queue:
                   f"Pet Name: {pets.pet_name} | "
                   f"Breed: {pets.breed} | "
                   f"Owner Name: {pets.owner_name} | "
-                  f"Severity Level: {pets.severity} | ")
+                  f"Severity Level: {pets.severity} | "
+                  f"Registered Time: {pets.registered_time.strftime('%Y-%m-%d %H:%M:%S')} | ")
             print(f"\n{'=' * 100}")
 
     # Used for updating, deleting, and undoing pet registration
