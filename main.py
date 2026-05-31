@@ -1,3 +1,5 @@
+""" Main Console for choosing specific options """
+from datetime import datetime
 from vetclinic import VetClinic
 
 clinic = VetClinic()
@@ -51,7 +53,8 @@ while True:
                       f"Pet Name: {pets.pet_name} | "
                       f"Breed: {pets.breed} | "
                       f"Owner Name: {pets.owner_name} | "
-                      f"Severity Level: {pets.severity} | ")
+                      f"Severity Level: {pets.severity} | "
+                      f"Registered Time: {pets.registered_time.strftime('%Y-%m-%d %H:%M:%S')} | ")
                 print(f"\n{'=' * 100}")
                 break
 
@@ -65,10 +68,13 @@ while True:
             if pet_id.lower() == "x":
                 break
 
+            pets = clinic.records.search(pet_id)
+
             if clinic.records.delete(pet_id):
                 clinic.queue.remove(pet_id)
                 print(f"\n{'=' * 30}")
-                print("\nSuccessfully deleted pet")
+                print(f"\nSuccessfully deleted {pets.pet_name} from pet records")
+                print(f"Pet record deleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
                 print(f"\n{'=' * 30}")
                 break
 
