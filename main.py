@@ -14,7 +14,7 @@ while True:
     print("7. Search Pet")
     print("8. Delete Pet")
     print("9. Total Waiting Pets")
-    print("10. Exit")
+    print("0. Exit")
     print("\n====================================")
 
     choice = clinic.int_input("\nEnter Choice: ")
