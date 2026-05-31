@@ -160,10 +160,8 @@ class VetClinic:
                 break
 
             else:
-                print(f"\n{'=' * 30}")
                 print("\nPet not found.")
-                print(f"\n{'=' * 30}")
-    
+        
     # Delete pet record from registry and queue
     def delete_pet(self):
         print("Input X to return to menu")
@@ -176,11 +174,11 @@ class VetClinic:
             pets = self.records.search(pet_id)
 
             if pets is None: # Error handler for crashing
-                print("Pet not found.")
+                print("\nPet not found.")
                 continue
 
-            self.records.delete(pet_id)
-            self.queue.remove(pet_id)
-
-            print(f"\nSuccessfully deleted {pets.pet_name} from pet records")
-            print(f"Pet record deleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+            if self.records.delete(pet_id):
+                self.queue.remove(pet_id)
+                print(f"\nSuccessfully deleted {pets.pet_name} from pet records")
+                print(f"Pet record deleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                break
