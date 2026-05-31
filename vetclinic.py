@@ -136,7 +136,8 @@ class VetClinic:
                 print(f"Pet record deleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
                 print(f"\n{'=' * 30}")
                 return
-
+    
+    # Searches for a registered pet and display information
     def pet_search(self):
         print("Input X to return to menu")
         while True:
@@ -144,7 +145,7 @@ class VetClinic:
             if pet_id.lower() == "x":
                 break
 
-            # Searches similar Pet ID
+            # Searches for Pet ID
             pets = self.records.search(pet_id)
 
             if pets:
@@ -162,17 +163,19 @@ class VetClinic:
                 print(f"\n{'=' * 30}")
                 print("\nPet not found.")
                 print(f"\n{'=' * 30}")
-
+    
+    # Delete pet record from registry and queue
     def delete_pet(self):
         print("Input X to return to menu")
         while True:
             pet_id = self.string_input("Enter Pet ID: ")
             if pet_id.lower() == "x":
                 break
-
+            
+            # Searches for Pet ID
             pets = self.records.search(pet_id)
 
-            if pets is None:
+            if pets is None: # Error handler for crashing
                 print("Pet not found.")
                 continue
 
