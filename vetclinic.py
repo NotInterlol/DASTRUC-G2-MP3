@@ -65,7 +65,7 @@ class VetClinic:
 
         print(f"\n{'=' * 30}")
         print("\nPet Registry Successful.")
-        print(f"Registered at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Registered at: {pets.registered_time.strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"\n{'=' * 30}")
 
     # Serves pet and remove from queue
@@ -120,19 +120,64 @@ class VetClinic:
 
     # Undo recently registered pet from pet records and from queue
     def undo_registry(self):
-        pets = self.undo.pop() # Remove from stack
+        while True:
+            pets = self.undo.pop() # Remove from stack
 
-        if pets is None:
-            print(f"\n{'=' * 30}")
-            print("\nNo registries to undo.")
-            print(f"\n{'=' * 30}")
-            return
+            if pets is None:
+                print(f"\n{'=' * 30}")
+                print("\nNo registries to undo.")
+                print(f"\n{'=' * 30}")
+                return
 
-        if self.records.delete(pets.pet_id): # Remove from Linked List
-            self.queue.remove(pets.pet_id) # Remove from Queue
-            print(f"\n{'=' * 30}")
-            print(f"\nSuccessfully removed {pets.pet_name} from pet registration.")
+            if self.records.delete(pets.pet_id): # Remove from Linked List
+                self.queue.remove(pets.pet_id) # Remove from Queue
+                print(f"\n{'=' * 30}")
+                print(f"\nSuccessfully deleted {pets.pet_name} from pet records")
+                print(f"Pet record deleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                print(f"\n{'=' * 30}")
+                return
+
+    def pet_search(self):
+        print("Input X to return to menu")
+        while True:
+            pet_id = self.string_input("Enter Pet ID: ")
+            if pet_id.lower() == "x":
+                break
+
+            # Searches similar Pet ID
+            pets = self.records.search(pet_id)
+
+            if pets:
+                print(f"\n{'=' * 100}")
+                print(f"\nPet ID: {pets.pet_id} | "
+                      f"Pet Name: {pets.pet_name} | "
+                      f"Breed: {pets.breed} | "
+                      f"Owner Name: {pets.owner_name} | "
+                      f"Severity Level: {pets.severity} | "
+                      f"Registered Time: {pets.registered_time.strftime('%Y-%m-%d %H:%M:%S')} | ")
+                print(f"\n{'=' * 100}")
+                break
+
+            else:
+                print(f"\n{'=' * 30}")
+                print("\nPet not found.")
+                print(f"\n{'=' * 30}")
+
+    def delete_pet(self):
+        print("Input X to return to menu")
+        while True:
+            pet_id = self.string_input("Enter Pet ID: ")
+            if pet_id.lower() == "x":
+                break
+
+            pets = self.records.search(pet_id)
+
+            if pets is None:
+                print("Pet not found.")
+                continue
+
+            self.records.delete(pet_id)
+            self.queue.remove(pet_id)
+
+            print(f"\nSuccessfully deleted {pets.pet_name} from pet records")
             print(f"Pet record deleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-            print(f"\n{'=' * 30}")
-        else:
-            print(f"Pet was already deleted")
