@@ -21,7 +21,7 @@ class Queue:
         return self.items.pop(0)
 
     # Used to check the current state of the queue
-    def peek(self):
+    def display_queue(self):
         if len(self.items) == 0: # Avoid crashing
             print(f"\n{'=' * 60}")
             print("\nQueue is empty")
@@ -43,8 +43,7 @@ class Queue:
         for i, pet in enumerate(self.items): # Checks the values of the index
             if pet.pet_id == pet_id:
                 del self.items[i]
-                return True
-        return False
+                break
 
     # Check queue size
     def size(self):
