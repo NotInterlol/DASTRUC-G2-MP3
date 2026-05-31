@@ -43,7 +43,8 @@ class Queue:
         for i, pet in enumerate(self.items): # Checks the values of the index
             if pet.pet_id == pet_id:
                 del self.items[i]
-                break
+                return True
+        return False
 
     # Check queue size
     def size(self):
