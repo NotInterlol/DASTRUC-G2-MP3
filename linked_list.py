@@ -19,7 +19,7 @@ class LinkedList:
         current.next = new_node # Attach new node to current node
 
     # Used to display entire pet records of registered pets
-    def display(self):
+    def display_record(self):
         current = self.head
 
         if current is None: # Initiates during empty list
